@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <title>Latihan J-Query | Komponen Komputer</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to right, #AFDDFF, #60B5FF);
+        margin: 0;
+        padding: 0;
+        color: #2d3436;
+      }
+
+      header {
+        background: linear-gradient(135deg, #0118D8, #1B56FD);
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      }
+
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #6c5ce7;
+        border: none;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #a29bfe;
+      }
+
+      #komponenBox {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 20px;
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      .card {
+        background: #ffffffd9;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+      }
+
+      #kotak {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        margin: 40px auto;
+        border-radius: 50%;
+        box-shadow: 0 0 0 rgba(0,0,0,0);
+        opacity: 0;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease-in-out;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Komponen-Komponen Komputer</h1>
+      <p>Mengenal bagian penting dari sebuah PC</p>
+    </header>
+
+    <div class="buttons">
+      <button id="sembunyi">Sembunyikan Komponen</button>
+      <button id="tampilkan">Tampilkan Komponen</button>
+      <button id="fade">Fade Komponen</button>
+      <button id="slide">Slide Komponen</button>
+      <button id="animasi">Animasi Kotak</button>
+      <button id="berhenti">Stop Animasi</button>
+      <button id="reset">Reset Kotak</button>
+    </div>
+
+    <div id="komponenBox">
+      <div class="card">
+        <strong>Prosesor (CPU)</strong><br>
+        Otak dari komputer yang memproses semua perintah.
+      </div>
+      <div class="card">
+        <strong>RAM</strong><br>
+        Memori sementara untuk menyimpan data yang sedang digunakan.
+      </div>
+      <div class="card">
+        <strong>Motherboard</strong><br>
+        Papan utama tempat semua komponen terhubung.
+      </div>
+      <div class="card">
+        <strong>SSD / HDD</strong><br>
+        Tempat penyimpanan data dan sistem operasi.
+      </div>
+      <div class="card">
+        <strong>Power Supply (PSU)</strong><br>
+        Menyuplai listrik ke seluruh komponen komputer.
+      </div>
+      <div class="card">
+        <strong>VGA / GPU</strong><br>
+        Mengolah grafis, penting untuk gaming atau desain.
+      </div>
+    </div>
+
+    <div id="kotak"></div>
+
+    <script>
+      $(document).ready(function () {
+        $("#sembunyi").click(function () {
+          $("#komponenBox").hide(500, function () {
+            alert("Komponen komputer disembunyikan.");
+          });
+        });
+
+        $("#tampilkan").click(function () {
+          $("#komponenBox").show(500);
+        });
+
+        $("#fade").click(function () {
+          $("#komponenBox").fadeToggle(600);
+        });
+
+        $("#slide").click(function () {
+          $("#komponenBox").slideToggle(600);
+        });
+
+        $("#animasi").click(function () {
+          $("#kotak")
+            .stop(true, true)
+            .css({
+              display: "flex",
+              width: "60px",
+              height: "60px",
+              opacity: 0,
+              marginTop: "0px",
+              borderRadius: "50%",
+              boxShadow: "0 0 0 rgba(0,0,0,0)",
+              background: "linear-gradient(135deg, #6c5ce7, #a29bfe)"
+            })
+            .animate({
+              width: "220px",
+              height: "220px",
+              marginTop: "30px",
+              borderRadius: "20px",
+              opacity: 1
+            }, 1000, "swing")
+            .queue(function (next) {
+              $(this).css("box-shadow", "0 8px 25px rgba(0,0,0,0.2)");
+              $(this).text("Belajar Komputer!");
+              next();
+            });
+        });
+
+        $("#berhenti").click(function () {
+          $("#kotak").stop(true, true).text("Berhenti");
+        });
+
+        $("#reset").click(function () {
+          $("#kotak")
+            .stop(true, true)
+            .css({
+              display: "none",
+              width: "60px",
+              height: "60px",
+              opacity: 0,
+              marginTop: "0px",
+              borderRadius: "50%",
+              boxShadow: "0 0 0 rgba(0,0,0,0)",
+              background: "linear-gradient(135deg, #6c5ce7, #a29bfe)"
+            })
+            .text("");
+        });
+      });
+    </script>
+  </body>
+</html>
